@@ -9,7 +9,7 @@ def convertFile():
 
     for val in values:
         if type(val) == list:
-            headers = handleDictKeys(val)
+            headers = handleTheList(val)
             for header in headers:
                 keys.append(header)
     print(len(data.keys()))
@@ -22,7 +22,17 @@ def convertFile():
     json_file.close()
 
 
-def handleDictKeys(listOfVals):
+def handleTheList(listOfVals):
     keys = []
-
+    for value in listOfVals:
+        value_keys = handleDicts(value)
+        for key in value_keys:
+            keys.append(key)
     return keys
+
+
+def handleDicts(dictionary):
+    dict_keys = []
+
+    return dict_keys
+
