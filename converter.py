@@ -42,7 +42,9 @@ def convertFile():
     json_file.close()
 
 
-#
+# in case the value of the key is a list
+# we need to identify if that list has any dictionaries
+# and any potential keys
 def handleTheList(listOfVals):
     keys = []
     for value in listOfVals:
@@ -52,7 +54,8 @@ def handleTheList(listOfVals):
     return keys
 
 
-#
+# in case there is a dictionary in any of the values in the file
+# the keys need to be accounted for
 def handleDicts(dictionary):
     dict_keys = list(dictionary.keys())
     dict_values = dictionary.values()
@@ -64,7 +67,9 @@ def handleDicts(dictionary):
     return dict_keys
 
 
-#
+# if the value is a list, the individual values must be retrieved
+# if there are dictionaries in the list, individual values per key need to be distinguished 
+# and accounted for
 def handleListValues(listForValues):
     values = []
     for value in listForValues:
@@ -74,7 +79,7 @@ def handleListValues(listForValues):
     return values
 
 
-#
+# # if there are dictionaries, individual values per key need to be distinguished and accounted for
 def handleDictValues(dictionary):
     single_values = []
     dict_values = dictionary.values()
@@ -92,7 +97,8 @@ def handleDictValues(dictionary):
     return single_values
 
 
-#
+# if the value is a list, this could be a list of individual items
+# or a list of dictionaries, so a distinction needs to be made
 def caseValueisList(value):
     outputs = []
     for item in value:
