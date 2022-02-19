@@ -24,14 +24,14 @@ def convertFile():
 
     # writing to a CSV file, which will store the equivalent information of the JSON file
     # but in a tabular format
-    csv_data = open('./data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.csv', 'w')
+    csv_data = open('./csv_data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.csv', 'w')
     csv_writer = csv.writer(csv_data)
     # add all the columns
     csv_writer.writerow(keys)
     # and the values for those columns
     for val in values:
         if type(val) == list:
-            vals = handleTheList(val)
+            vals = handleListValues(val)
             for item in vals:
                 entries.append(item)
         else:
@@ -42,6 +42,7 @@ def convertFile():
     json_file.close()
 
 
+#
 def handleTheList(listOfVals):
     keys = []
     for value in listOfVals:
@@ -51,6 +52,7 @@ def handleTheList(listOfVals):
     return keys
 
 
+#
 def handleDicts(dictionary):
     dict_keys = list(dictionary.keys())
     dict_values = dictionary.values()
@@ -62,6 +64,7 @@ def handleDicts(dictionary):
     return dict_keys
 
 
+#
 def handleListValues(listForValues):
     values = []
     for value in listForValues:
@@ -71,8 +74,32 @@ def handleListValues(listForValues):
     return values
 
 
+#
 def handleDictValues(dictionary):
-    dict_values = []
+    single_values = []
+    dict_values = dictionary.values()
+    for value in dict_values:
+        if type(value) == dict:
+            items = handleDictValues(value)
+            for item in items:
+                single_values.append(item)
+        elif type(value) == list:
+            items = caseValueisList(value)
+            for item in items:
+                single_values.append(item)
+        else:
+            single_values.append(value)
+    return single_values
 
-    return dict_values
 
+#
+def caseValueisList(value):
+    outputs = []
+    for item in value:
+        if type(item) == dict:
+            entries = handleDictValues(item)
+            for entry in entries:
+                outputs.append(entry)
+        else:
+            outputs.append(item)
+    return outputs
