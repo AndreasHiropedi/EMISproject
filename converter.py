@@ -64,7 +64,10 @@ def handleDicts(dictionary):
 
 def handleListValues(listForValues):
     values = []
-    
+    for value in listForValues:
+        individual_values = handleDictValues(value)
+        for item in individual_values:
+            values.append(item)
     return values
 
 
