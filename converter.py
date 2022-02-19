@@ -1,12 +1,14 @@
 import json
 import csv
 
+# handles single file conversions
 def convertFile():
     # load the file and retrieve its contents
     json_file = open('./data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.json', 'r')
     data = json.load(json_file)
     keys = list(data.keys())
     values = data.values()
+    entries = []
 
     # identify all the dictionary keys in the file contents
     for val in values:
@@ -24,8 +26,14 @@ def convertFile():
     csv_writer = csv.writer(csv_data)
     # add all the columns
     csv_writer.writerow(keys)
-    # and the data
-    
+    # and the values for those columns
+    for val in values:
+        if type(val) == list:
+            vals = handleTheList(val)
+
+        else:
+            entries.append(val)
+    csv_writer.writerow(entries)
     csv_data.close()
     json_file.close()
 
@@ -48,4 +56,15 @@ def handleDicts(dictionary):
             for header in headers:
                 dict_keys.append(header)
     return dict_keys
+
+
+def handleListValues(listForValues):
+    values = []
+
+    return values
+
+def handleDictValues(dictionary):
+    dict_values = []
+
+    return dict_values
 
