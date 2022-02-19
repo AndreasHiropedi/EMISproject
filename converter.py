@@ -4,7 +4,7 @@ import csv
 def convertFile():
     json_file = open('./data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.json', 'r')
     data = json.load(json_file)
-    keys = data.keys()
+    keys = list(data.keys())
     values = data.values()
 
     for val in values:
@@ -12,8 +12,6 @@ def convertFile():
             headers = handleTheList(val)
             for header in headers:
                 keys.append(header)
-    print(len(data.keys()))
-    print(len(keys))
     
     csv_data = open('./data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.csv', 'w')
     csv_writer = csv.writer(csv_data)
@@ -32,7 +30,12 @@ def handleTheList(listOfVals):
 
 
 def handleDicts(dictionary):
-    dict_keys = []
-
+    dict_keys = list(dictionary.keys())
+    dict_values = dictionary.values()
+    for value in dict_values:
+        if type(value) == dict:
+            headers = handleDicts(value)
+            for header in headers:
+                dict_keys.append(header)
     return dict_keys
 
