@@ -6,9 +6,13 @@ import os
 # iterates over the whole dataset folder, to convert all files to CSV files
 def loopFiles():
     allfiles = os.listdir("./data")
+    # this was a strange file that appeared in my directory, unsure why it was there
+    # I needed this line, since without it, the code would crash, because this file would make it crash
+    allfiles.remove('.DS_Store')
     for fileName in allfiles:
         file_path = "./data/" + fileName
-        file = open(file_path)
+        file = open(file_path, 'r')
+        print(fileName)
         convertFile(file, fileName)
 
 
