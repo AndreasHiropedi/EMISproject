@@ -1,16 +1,28 @@
 import json
 import csv
+import os
+
+
+# iterates over the whole dataset folder, to convert all files to CSV files
+def loopFiles():
+    allfiles = os.listdir("./data")
+    for fileName in allfiles:
+        file_path = "./data/" + fileName
+        file = open(file_path)
+        convertFile(file, fileName)
 
 
 # handles single file conversions
-def convertFile():
-    # load the file and retrieve its contents
-    json_file = open('./data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.json', 'r')
+def convertFile(json_file, fileName):
+    # retrieve the file contents, and other details
     data = json.load(json_file)
     keys = list(data.keys())
     values = data.values()
     # this will store all the individual values, for every single key in the file
     entries = []
+    #
+    name = fileName.replace(".json", "")
+    print(name)
 
     # identify all the dictionary keys in the file contents
     for val in values:
@@ -24,7 +36,7 @@ def convertFile():
 
     # writing to a CSV file, which will store the equivalent information of the JSON file
     # but in a tabular format
-    csv_data = open('./csv_data/Aaron697_Dickens475_8c95253e-8ee8-9ae8-6d40-021d702dc78e.csv', 'w')
+    csv_data = open('./csv_data/' + name + 'csv', 'w')
     csv_writer = csv.writer(csv_data)
     # add all the columns
     csv_writer.writerow(keys)
@@ -68,7 +80,7 @@ def handleDicts(dictionary):
 
 
 # if the value is a list, the individual values must be retrieved
-# if there are dictionaries in the list, individual values per key need to be distinguished 
+# if there are dictionaries in the list, individual values per key need to be distinguished
 # and accounted for
 def handleListValues(listForValues):
     values = []
