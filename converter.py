@@ -12,7 +12,6 @@ def loopFiles():
     for fileName in allfiles:
         file_path = "./data/" + fileName
         file = open(file_path, 'r')
-        print(fileName)
         convertFile(file, fileName)
 
 
