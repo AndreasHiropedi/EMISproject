@@ -20,9 +20,8 @@ def convertFile(json_file, fileName):
     values = data.values()
     # this will store all the individual values, for every single key in the file
     entries = []
-    #
+    # get the name of the file, without the .json type
     name = fileName.replace(".json", "")
-    print(name)
 
     # identify all the dictionary keys in the file contents
     for val in values:
